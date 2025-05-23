@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.industry,
+  name tcloud_tpcdi.industry,
   kind FULL,
 );
 

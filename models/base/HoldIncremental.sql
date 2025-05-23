@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.holdingincremental,
+  name tcloud_tpcdi.holdingincremental,
   kind VIEW,
 );
 

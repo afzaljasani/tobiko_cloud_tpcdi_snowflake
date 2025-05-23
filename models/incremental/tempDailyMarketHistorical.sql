@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.tempdailymarkethistorical,
+  name tcloud_tpcdi.tempdailymarkethistorical,
   kind FULL,
 );
 
@@ -16,9 +16,9 @@ SELECT
     ORDER BY dm_date ASC ROWS BETWEEN 364 PRECEDING AND CURRENT ROW
   ) fiftytwoweekhigh
 FROM (
-  SELECT * FROM sqlmesh_tpcdi.dailymarkethistorical
+  SELECT * FROM tcloud_tpcdi.dailymarkethistorical
   UNION ALL
   SELECT * except(fiftytwoweekhigh, sk_fiftytwoweekhighdate, 
-  fiftytwoweeklow, sk_fiftytwoweeklowdate) FROM sqlmesh_tpcdi.dailymarketincremental) dmh
-JOIN sqlmesh_tpcdi.dimdate d 
+  fiftytwoweeklow, sk_fiftytwoweeklowdate) FROM tcloud_tpcdi.dailymarketincremental) dmh
+JOIN tcloud_tpcdi.dimdate d 
   ON d.datevalue = dm_date

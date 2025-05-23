@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.batchdate,
+  name tcloud_tpcdi.batchdate,
   kind FULL,
 );
 

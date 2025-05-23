@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.factcashbalances,
+  name tcloud_tpcdi.factcashbalances,
   kind FULL,
   audits (
     NOT_NULL(columns = (sk_accountid))
@@ -24,16 +24,16 @@ FROM (
     FROM tpcdi.tpcdi_100_dbsql_100_stage.v_cashtransactionhistory
     UNION ALL
     SELECT * 
-    FROM sqlmesh_tpcdi.cashtransactionincremental
+    FROM tcloud_tpcdi.cashtransactionincremental
   )
   GROUP BY
     accountid,
     datevalue,
     batchid) c 
-JOIN sqlmesh_tpcdi.dimdate d 
+JOIN tcloud_tpcdi.dimdate d 
   ON c.datevalue = d.datevalue
 -- Converts to LEFT JOIN if this is run as DQ EDITION. On some higher Scale Factors, a small number of Account IDs are missing from DimAccount, causing audit check failures. 
- LEFT JOIN sqlmesh_tpcdi.dimaccount a
+ LEFT JOIN tcloud_tpcdi.dimaccount a
   ON 
     c.accountid = a.accountid
     AND c.datevalue >= a.effectivedate 

@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.financial,
+  name tcloud_tpcdi.financial,
   kind FULL,
   audits (
     NOT_NULL(columns = (sk_companyid))
@@ -43,7 +43,7 @@ FROM (
       cast(substring(value, 143, 13) AS BIGINT) AS fi_out_basic,
       cast(substring(value, 156, 13) AS BIGINT) AS fi_out_dilut, 
       trim(substring(value, 169, 60)) AS conameorcik
-    FROM sqlmesh_tpcdi.finwire
+    FROM tcloud_tpcdi.finwire
     WHERE rectype = 'FIN'
   ) f 
 ) f
@@ -53,14 +53,14 @@ JOIN (
     name conameorcik,
     EffectiveDate,
     EndDate
-  FROM sqlmesh_tpcdi.dimcompany
+  FROM tcloud_tpcdi.dimcompany
   UNION ALL
   SELECT 
     sk_companyid,
     cast(companyid as string) conameorcik,
     EffectiveDate,
     EndDate
-  FROM sqlmesh_tpcdi.dimcompany
+  FROM tcloud_tpcdi.dimcompany
 ) dc 
 ON
   f.conameorcik = dc.conameorcik 

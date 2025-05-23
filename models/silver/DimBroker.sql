@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.dimbroker,
+  name tcloud_tpcdi.dimbroker,
   kind FULL,
 );
 
@@ -17,7 +17,7 @@ SELECT
   employeephone phone,
   true iscurrent,
   0 batchid,
-  (SELECT min(to_date(datevalue)) as effectivedate FROM sqlmesh_tpcdi.DimDate) effectivedate,
+  (SELECT min(to_date(datevalue)) as effectivedate FROM tcloud_tpcdi.DimDate) effectivedate,
   date('9999-12-31') enddate,
   concat(brokerid, '-', enddate) as sk_brokerid
 FROM  tpcdi.tpcdi_100_dbsql_100_stage.v_hr

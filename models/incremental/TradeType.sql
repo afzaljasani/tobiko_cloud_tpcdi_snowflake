@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.tradetype,
+  name tcloud_tpcdi.tradetype,
   kind FULL,
 );
 

@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.statustype,
+  name tcloud_tpcdi.statustype,
   kind FULL,
 );
 

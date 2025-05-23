@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.cashtransactionincremental,
+  name tcloud_tpcdi.cashtransactionincremental,
   kind VIEW,
 );
 

@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.dimcompany,
+  name tcloud_tpcdi.dimcompany,
   kind FULL,
 );
 
@@ -53,9 +53,9 @@ SELECT
       trim(substring(value, 306, 24)) AS Country,
       trim(substring(value, 330, 46)) AS CEOname,
       trim(substring(value, 376, 150)) AS Description
-    FROM sqlmesh_tpcdi.finwire
+    FROM tcloud_tpcdi.finwire
     WHERE rectype = 'CMP'
        ) cmp
-  JOIN sqlmesh_tpcdi.StatusType st ON cmp.status = st.st_id
-  JOIN sqlmesh_tpcdi.Industry ind ON cmp.industryid = ind.in_id
+  JOIN tcloud_tpcdi.StatusType st ON cmp.status = st.st_id
+  JOIN tcloud_tpcdi.Industry ind ON cmp.industryid = ind.in_id
 )

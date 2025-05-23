@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.watchincremental,
+  name tcloud_tpcdi.watchincremental,
   kind VIEW,
 );
 

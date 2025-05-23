@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.dailymarketincremental,
+  name tcloud_tpcdi.dailymarketincremental,
   kind VIEW,
 );
 

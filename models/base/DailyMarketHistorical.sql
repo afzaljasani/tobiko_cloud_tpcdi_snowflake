@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.dailymarkethistorical,
+  name tcloud_tpcdi.dailymarkethistorical,
   kind VIEW,
 );
 

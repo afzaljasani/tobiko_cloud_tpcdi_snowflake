@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.factwatches,
+  name tcloud_tpcdi.factwatches,
   kind FULL,
   audits (
     NOT_NULL_NON_BLOCKING(columns = (sk_securityid, sk_customerid))
@@ -39,19 +39,19 @@ FROM (
       FROM (
         SELECT * FROM tpcdi.tpcdi_100_dbsql_100_stage.v_watchhistory
         UNION ALL
-        SELECT *  FROM sqlmesh_tpcdi.watchincremental) wh
-      JOIN sqlmesh_tpcdi.dimdate d
+        SELECT *  FROM tcloud_tpcdi.watchincremental) wh
+      JOIN tcloud_tpcdi.dimdate d
         ON d.datevalue = date(wh.w_dts)))
   QUALIFY ROW_NUMBER() OVER (PARTITION BY customerid, symbol ORDER BY w_dts desc) = 1) wh
 -- Converts to LEFT JOINs if this is run as DQ EDITION. On some higher Scale Factors, a small number of Security symbols or Customer IDs "may" be missing from DimSecurity/DimCustomer, causing audit check failures. 
 --${dq_left_flg} 
-LEFT JOIN sqlmesh_tpcdi.dimsecurity s 
+LEFT JOIN tcloud_tpcdi.dimsecurity s 
   ON 
     s.symbol = wh.symbol
     AND wh.dateplaced >= s.effectivedate 
     AND wh.dateplaced < s.enddate
 --${dq_left_flg} 
-LEFT JOIN sqlmesh_tpcdi.dimcustomer c 
+LEFT JOIN tcloud_tpcdi.dimcustomer c 
   ON
     wh.customerid = c.customerid
     AND wh.dateplaced >= c.effectivedate 

@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.dimcustomer,
+  name tcloud_tpcdi.dimcustomer,
   kind FULL,
   audits (
     NOT_NULL_NON_BLOCKING(columns = (
@@ -43,12 +43,12 @@ SELECT
   c.batchid,
   c.effectivedate,
   c.enddate
-FROM sqlmesh_tpcdi.DimCustomerStg AS c
-LEFT JOIN sqlmesh_tpcdi.TaxRate AS r_lcl
+FROM tcloud_tpcdi.DimCustomerStg AS c
+LEFT JOIN tcloud_tpcdi.TaxRate AS r_lcl
   ON c.LCL_TX_ID = r_lcl.TX_ID
-LEFT JOIN sqlmesh_tpcdi.TaxRate AS r_nat
+LEFT JOIN tcloud_tpcdi.TaxRate AS r_nat
   ON c.NAT_TX_ID = r_nat.TX_ID
-LEFT JOIN sqlmesh_tpcdi.prospect AS p
+LEFT JOIN tcloud_tpcdi.prospect AS p
   ON UPPER(p.lastname) = UPPER(c.lastname)
   AND UPPER(p.firstname) = UPPER(c.firstname)
   AND UPPER(p.addressline1) = UPPER(c.addressline1)

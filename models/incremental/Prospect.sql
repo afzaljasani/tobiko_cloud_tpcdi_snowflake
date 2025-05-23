@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.prospect,
+  name tcloud_tpcdi.prospect,
   kind FULL,
 );
 
@@ -81,7 +81,7 @@ FROM (
       numbercreditcards,
       networth,
       min(batchid) batchid
-    FROM sqlmesh_tpcdi.prospectraw p
+    FROM tcloud_tpcdi.prospectraw p
     GROUP BY
       agencyid,
       lastname,
@@ -110,16 +110,16 @@ JOIN (
   SELECT 
     sk_dateid,
     batchid
-  FROM sqlmesh_tpcdi.batchdate b 
-  JOIN sqlmesh_tpcdi.dimdate d 
+  FROM tcloud_tpcdi.batchdate b 
+  JOIN tcloud_tpcdi.dimdate d 
     ON b.batchdate = d.datevalue) recdate
   ON p.recordbatchid = recdate.batchid
 JOIN (
   SELECT 
     sk_dateid,
     batchid
-  FROM sqlmesh_tpcdi.batchdate b 
-  JOIN sqlmesh_tpcdi.dimdate d 
+  FROM tcloud_tpcdi.batchdate b 
+  JOIN tcloud_tpcdi.dimdate d 
     ON b.batchdate = d.datevalue) origdate
   ON p.batchid = origdate.batchid
 LEFT JOIN (
@@ -130,7 +130,7 @@ LEFT JOIN (
     addressline1,
     addressline2,
     postalcode
-  FROM sqlmesh_tpcdi.dimcustomerstg
+  FROM tcloud_tpcdi.dimcustomerstg
   WHERE iscurrent) c
   ON 
     upper(p.LastName) = upper(c.lastname)

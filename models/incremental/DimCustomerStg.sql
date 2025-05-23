@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.dimcustomerstg,
+  name tcloud_tpcdi.dimcustomerstg,
   kind FULL,
 );
 
@@ -100,7 +100,7 @@ SELECT * FROM (
       1 batchid,
       update_ts,
       concat(customerid, '-', update_ts) as sk_customerid
-    FROM sqlmesh_tpcdi.customermgmtview c
+    FROM tcloud_tpcdi.customermgmtview c
     WHERE ActionType in ('NEW', 'INACT', 'UPDCUST')
     UNION ALL
     SELECT
@@ -130,10 +130,10 @@ SELECT * FROM (
       c.batchid,
       to_timestamp(bd.batchdate) update_ts,
       concat(c.customerid, '-', update_ts)as sk_customerid
-    FROM sqlmesh_tpcdi.customerincremental c
-    JOIN sqlmesh_tpcdi.batchdate bd
+    FROM tcloud_tpcdi.customerincremental c
+    JOIN tcloud_tpcdi.batchdate bd
       ON c.batchid = bd.batchid
-    JOIN sqlmesh_tpcdi.statustype s 
+    JOIN tcloud_tpcdi.statustype s 
       ON c.status = s.st_id
   ) c
   )

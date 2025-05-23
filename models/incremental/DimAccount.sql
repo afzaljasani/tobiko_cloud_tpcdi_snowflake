@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.dimaccount,
+  name tcloud_tpcdi.dimaccount,
   kind FULL,
   audits (
     NOT_NULL_NON_BLOCKING(columns = (sk_customerid, sk_brokerid))
@@ -52,7 +52,7 @@ FROM (
           status,
           update_ts,
           1 batchid
-        FROM sqlmesh_tpcdi.customermgmtview c
+        FROM tcloud_tpcdi.customermgmtview c
         WHERE ActionType NOT IN ('UPDCUST', 'INACT')
         UNION ALL
         SELECT
@@ -64,20 +64,20 @@ FROM (
           st_name as status,
           TO_TIMESTAMP(bd.batchdate) update_ts,
           a.batchid
-        FROM sqlmesh_tpcdi.accountincremental a
-        JOIN sqlmesh_tpcdi.batchdate bd
+        FROM tcloud_tpcdi.accountincremental a
+        JOIN tcloud_tpcdi.batchdate bd
           ON a.batchid = bd.batchid
-        JOIN sqlmesh_tpcdi.statustype st 
+        JOIN tcloud_tpcdi.statustype st 
           ON a.status = st.st_id
       ) a
     ) a
     WHERE a.effectivedate < a.enddate
   ) a
-  FULL OUTER JOIN sqlmesh_tpcdi.dimcustomerstg c 
+  FULL OUTER JOIN tcloud_tpcdi.dimcustomerstg c 
     ON 
       a.customerid = c.customerid
       AND c.enddate > a.effectivedate
       AND c.effectivedate < a.enddate
 ) a
-LEFT JOIN sqlmesh_tpcdi.dimbroker b 
+LEFT JOIN tcloud_tpcdi.dimbroker b 
   ON a.brokerid = b.brokerid;

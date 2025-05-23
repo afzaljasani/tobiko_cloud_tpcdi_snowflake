@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.dimtime,
+  name tcloud_tpcdi.dimtime,
   kind FULL,
 );
 

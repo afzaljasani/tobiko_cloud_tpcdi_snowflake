@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.tradeincremental,
+  name tcloud_tpcdi.tradeincremental,
   kind VIEW,
 );
 

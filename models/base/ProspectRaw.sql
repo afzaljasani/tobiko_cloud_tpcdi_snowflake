@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.prospectraw,
+  name tcloud_tpcdi.prospectraw,
   kind VIEW,
 );
 

@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.finwire,
+  name tcloud_tpcdi.finwire,
   kind VIEW,
 );
 

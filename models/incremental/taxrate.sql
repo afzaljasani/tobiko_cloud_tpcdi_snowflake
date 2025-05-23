@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.taxrate,
+  name tcloud_tpcdi.taxrate,
   kind FULL,
 );
 

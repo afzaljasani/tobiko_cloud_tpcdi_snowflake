@@ -8,9 +8,6 @@ gateways:
         database: TPCDI
         warehouse: COMPUTE_WH
         role: ACCOUNTADMIN
-      state_connection:
-        type: duckdb
-        database: state.db
 
 default_gateway: sqlmesh
 

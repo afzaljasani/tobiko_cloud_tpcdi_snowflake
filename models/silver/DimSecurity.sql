@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.dimsecurity,
+  name tcloud_tpcdi.dimsecurity,
   kind FULL,
   audits (
     NOT_NULL_NON_BLOCKING(columns = (sk_companyid))
@@ -60,10 +60,10 @@ FROM (
     to_date(substring(value, 123, 8), 'yyyyMMdd') AS firsttradeonexchange,
     cast(substring(value, 131, 12) AS DOUBLE) AS Dividend,
     trim(substring(value, 143, 60)) AS conameorcik
-      FROM sqlmesh_tpcdi.finwire
+      FROM tcloud_tpcdi.finwire
       WHERE rectype = 'SEC'
       ) fws
-    JOIN sqlmesh_tpcdi.statustype s
+    JOIN tcloud_tpcdi.statustype s
       ON s.ST_ID = fws.status
     ) fws
   JOIN (
@@ -72,14 +72,14 @@ FROM (
       name conameorcik,
       EffectiveDate,
       EndDate
-    FROM sqlmesh_tpcdi.dimcompany
+    FROM tcloud_tpcdi.dimcompany
     UNION ALL
     SELECT 
       sk_companyid,
       cast(companyid as string) conameorcik,
       EffectiveDate,
       EndDate
-    FROM sqlmesh_tpcdi.dimcompany
+    FROM tcloud_tpcdi.dimcompany
   ) dc 
   ON
     fws.conameorcik = dc.conameorcik 

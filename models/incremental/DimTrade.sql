@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.dimtrade,
+  name tcloud_tpcdi.dimtrade,
   kind FULL,
   audits (
     NOT_NULL_NON_BLOCKING(columns = (sk_securityid, sk_accountid))
@@ -122,29 +122,29 @@ FROM (
             WHEN cdc_flag = 'I' THEN TRUE 
             WHEN status IN ('Completed', 'Canceled') THEN FALSE 
             ELSE cast(null as boolean) END AS create_flg
-        FROM sqlmesh_tpcdi.tradeincremental t
+        FROM tcloud_tpcdi.tradeincremental t
       ) t
-      JOIN sqlmesh_tpcdi.dimdate dd
+      JOIN tcloud_tpcdi.dimdate dd
         ON date(t.t_dts) = dd.datevalue
-      JOIN sqlmesh_tpcdi.dimtime dt
+      JOIN tcloud_tpcdi.dimtime dt
         ON to_char(t.t_dts, 'hh:mi:ss') = dt.timevalue
     )
   )
   QUALIFY ROW_NUMBER() OVER (PARTITION BY tradeid ORDER BY t_dts desc) = 1
 ) trade
-JOIN sqlmesh_tpcdi.statustype status
+JOIN tcloud_tpcdi.statustype status
   ON status.st_id = trade.t_st_id
-JOIN sqlmesh_tpcdi.tradetype tt
+JOIN tcloud_tpcdi.tradetype tt
   ON tt.tt_id == trade.t_tt_id
 -- Converts to LEFT JOIN if this is run as DQ EDITION. On some higher Scale Factors, a small number of Security symbols or Account IDs are missing from DimSecurity/DimAccount, causing audit check failures. 
 --${dq_left_flg} 
-LEFT JOIN sqlmesh_tpcdi.dimsecurity ds
+LEFT JOIN tcloud_tpcdi.dimsecurity ds
   ON 
     ds.symbol = trade.t_s_symb
     AND createdate >= ds.effectivedate 
     AND createdate < ds.enddate
 --${dq_left_flg} 
-LEFT JOIN sqlmesh_tpcdi.dimaccount da
+LEFT JOIN tcloud_tpcdi.dimaccount da
   ON 
     trade.t_ca_id = da.accountid 
     AND createdate >= da.effectivedate 

@@ -1,5 +1,5 @@
 MODEL (
-  name sqlmesh_tpcdi.customermgmtview,
+  name tcloud_tpcdi.customermgmtview,
   kind VIEW,
 );
 
