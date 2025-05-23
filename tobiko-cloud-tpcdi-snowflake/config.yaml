@@ -1,0 +1,23 @@
+gateways:
+  sqlmesh:
+      connection:
+        type: snowflake
+        account: {{ env_var('SNOWFLAKE_ACCOUNT') }}
+        user: {{ env_var('SNOWFLAKE_USER') }}
+        password: {{ env_var('SNOWFLAKE_PW') }}
+        database: TPCDI
+        warehouse: COMPUTE_WH
+        role: ACCOUNTADMIN
+      state_connection:
+        type: duckdb
+        database: state.db
+
+default_gateway: sqlmesh
+
+model_defaults:
+  dialect: snowflake
+
+variables:
+  raw_schema: tpcdi_100_dbsql_100
+
+  
