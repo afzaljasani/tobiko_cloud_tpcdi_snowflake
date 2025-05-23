@@ -1,0 +1,6 @@
+projects:
+    snowflake-benchmarks:
+        url: https://internal.cloud.tobikodata.com/sqlmesh/tobiko/snowflake-benchmarks/
+        gateway: sqlmesh
+        extras: snowflake,web,github,postgres
+default_project: snowflake-benchmarks
